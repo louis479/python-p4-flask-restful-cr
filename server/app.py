@@ -54,10 +54,18 @@ api.add_resource(Newsletters, '/newsletters')
 
 
 class NewsletterByID(Resource):
+
     def get(self, id):
-        newsletter = Newsletter.query.filter_by(id=id).first()
-        return newsletter.to_dict(), 200
-    
+
+        response_dict = Newsletter.query.filter_by(id=id).first().to_dict()
+
+        response = make_response(
+            response_dict,
+            200,
+        )
+
+        return response
+
 api.add_resource(NewsletterByID, '/newsletters/<int:id>') 
 
 
